@@ -1,0 +1,57 @@
+h1, div, ul, label {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0 10px 0;
+}
+
+.container {
+  max-width: 600px;
+}
+
+.top-statuses {
+  padding: 10px 0 10px 0;
+}
+
+.task-title {
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0 0 5px 0;
+}
+
+.task {
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #e6e5e5;
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px 0 #ddd;
+}
+
+.task-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-info-block {
+  font-size: 0.8em;
+  color: dimgray;
+  display: flex;
+}
+
+.task-info-name {
+  width: 45px;
+}
+
+.add-task {
+}
+
+.set-status {
+  padding: 10px 0 0 0;
+}

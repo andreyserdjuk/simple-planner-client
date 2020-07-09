@@ -1,6 +1,13 @@
 # PlannerClient
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
+Client for Planner GraphQL API.
+##### Features:
+- shows task list
+- create task
+- set status
+- delete
+
+![alt text](./screenshot.png)
 
 ## Development server
 

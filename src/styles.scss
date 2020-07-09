@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background: #f4f4f4;
+  color: #303030;
+}
+
+.reset-ul {
+  padding: 0;
+
+  li {
+    list-style: none;
+  }
+}

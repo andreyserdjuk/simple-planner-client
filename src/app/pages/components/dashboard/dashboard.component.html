@@ -1,0 +1,125 @@
+<div class="container">
+<div class="header">
+  <div>
+    <h4>Filter tasks by status:</h4>
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary add-task" (click)="addTask()">Create</button>
+  </div>
+</div>
+
+<div class="btn-group top-statuses" role="group">
+  <button type="button" class="btn btn-default"
+    *ngFor="let status of taskStatuses | async"
+    (click)="reloadTasksByStatus(status)"
+    [ngClass]="{
+      'status': true,
+      'active': currentStatus === status
+    }"
+  >
+    {{ status }}
+  </button>
+</div>
+
+
+<button
+  (click)="showCreateForm = false"
+  *ngIf="showCreateForm"
+  type="button"
+  class="btn btn-danger add-task"
+  style="margin-left: 10px"
+>Close</button>
+
+<form #createTaskForm="ngForm" *ngIf="showCreateForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input class="form-control" type="text" class="form-control" id="title"
+           required
+           [(ngModel)]="createTaskModel.title" name="title"
+           #name="ngModel">
+  </div>
+
+  <div class="form-group">
+    <label for="date_start">Date start</label>
+    <input class="form-control" type="datetime-local" class="form-control" id="date_start"
+           required
+           [(ngModel)]="createTaskModel.dateStart" name="dateStart"
+           #name="ngModel">
+  </div>
+
+  <div class="form-group">
+    <label for="date_end">Date end</label>
+    <input class="form-control" type="datetime-local" class="form-control" id="date_end"
+           required
+           [(ngModel)]="createTaskModel.dateEnd" name="dateEnd"
+           #name="ngModel">
+  </div>
+
+  <div class="form-group">
+    <label for="task_priority">Priority</label>
+    <select class="form-control" id="task_priority"
+            required
+            [(ngModel)]="createTaskModel.taskPriority" name="taskPriority"
+            #name="ngModel">
+      <option *ngFor="let priority of taskPriorities | async" [value]="priority">{{priority}}</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-success" [disabled]="!createTaskForm.form.valid">Submit</button>
+</form>
+
+<ul
+  *ngIf="!showCreateForm"
+  class="reset-ul"
+>
+  <li
+    *ngFor="let task of tasks | async"
+    class="task"
+  >
+    <div class="task-title">{{ task.title }}</div>
+    <div class="task-info">
+      <div>
+        <div class="task-info-block">
+          <div class="task-info-name">Priority:</div>
+          <div>
+            <span [ngClass]="['label', getPriorityClass(task.taskPriority)]">{{ task.taskPriority }}</span>
+          </div>
+        </div>
+
+        <div
+          *ngIf="task.dateStart"
+          class="task-info-block"
+        >
+          <div class="task-info-name">From:</div>
+          <div>"{{ task.dateStart | dateTimeToFormat:'HH:mm MMMM d, yyyy' }}"</div>
+        </div>
+
+        <div
+          *ngIf="task.dateEnd"
+          class="task-info-block"
+        >
+          <div class="task-info-name">To:</div>
+          <div>"{{ task.dateEnd | dateTimeToFormat:'HH:mm MMMM d, yyyy' }}"</div>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn" (click)="deleteTask(task.id)">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="set-status">
+      Set status:
+      <div class="btn-group" role="group">
+        <ng-container *ngFor="let taskStatus of taskStatuses | async">
+          <button
+            *ngIf="taskStatus !== task.taskStatus"
+            type="button"
+            class="btn btn-default btn-xs"
+            (click)="setTaskStatus(task.id, taskStatus)">{{taskStatus}}</button>
+        </ng-container>
+      </div>
+    </div>
+  </li>
+</ul>
+</div>

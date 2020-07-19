@@ -12,13 +12,12 @@
   <button type="button" class="btn btn-default"
     *ngFor="let status of taskStatuses | async"
     (click)="reloadTasksByStatus(status)"
+    [id]="'status-'+status"
     [ngClass]="{
       'status': true,
       'active': currentStatus === status
     }"
-  >
-    {{ status }}
-  </button>
+  >{{ status }}</button>
 </div>
 
 

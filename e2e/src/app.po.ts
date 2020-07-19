@@ -6,6 +6,14 @@ export class AppPage {
   }
 
   getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+    return element(by.tagName('h4')).getText() as Promise<string>;
+  }
+
+  async createNewTask(title: string, priority: string): Promise<void | string> {
+    return element(by.className('add-task')).click().then(async () => {
+      await element(by.id('title')).sendKeys(title);
+      await element(by.xpath('//option[@value="high"]')).click();
+      await element(by.xpath('//button[@type="submit"]')).click();
+    });
   }
 }

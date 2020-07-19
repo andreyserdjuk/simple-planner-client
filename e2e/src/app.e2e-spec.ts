@@ -1,5 +1,5 @@
 import { AppPage } from './app.po';
-import { browser, logging } from 'protractor';
+import {browser, until, by, element, logging} from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,9 +8,18 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display filter tasks message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('planner-client app is running!');
+    expect(page.getTitleText()).toEqual('Filter tasks by status:');
+  });
+
+  it('should allow to create task', async () => {
+    await page.navigateTo();
+    await page.createNewTask('test task', 'high');
+    await element(by.id('status-scheduled')).click();
+    const el = await element(by.className('task'));
+
+    expect(el.getText()).toContain('test task');
   });
 
   afterEach(async () => {
